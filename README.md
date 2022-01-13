@@ -30,6 +30,13 @@ gem install bundler
 bundle install
 ```
 
+Copy .env.example into same diretory
+```
+cp .env.example .env
+```
+
+In .env update DEFAULT_PASSWORD, ADMINS, TEST_USER_EMAIL, and TEST_USER_PASSWORD
+
 Next, set up the database:
 
 ```
