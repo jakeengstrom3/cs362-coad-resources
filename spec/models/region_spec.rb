@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Region, type: :model do
 
-  let(:region) {Region.new}
+  let(:region) {Region.new(name: "FAKE NAME")}
 
   it "exists" do
     region
@@ -20,7 +20,12 @@ RSpec.describe Region, type: :model do
     it "validates name uniqueness" do
       expect(region).to validate_uniqueness_of(:name).case_insensitive
     end
-   
+  end
+
+  describe "to_s" do
+    it "returns name as a string" do
+      expect(region.to_s).to eq("FAKE NAME")
+    end
   end
 
 end
