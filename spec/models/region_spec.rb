@@ -20,6 +20,10 @@ RSpec.describe Region, type: :model do
     it "validates name uniqueness" do
       expect(region).to validate_uniqueness_of(:name).case_insensitive
     end
+
+    it "checks if it has many tickets" do
+      expect(region).to have_many(:tickets)
+    end
   end
 
   describe "to_s" do
