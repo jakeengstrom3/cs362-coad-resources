@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe ResourceCategory, type: :model do
 
-  let (:resource_category) {ResourceCategory.new}
+  let (:resource_category) {ResourceCategory.new(name: "FAKE NAME")}
 
   it "exits" do
     ResourceCategory.new
@@ -30,6 +30,12 @@ RSpec.describe ResourceCategory, type: :model do
       expect(resource_category).to have_and_belong_to_many(:organizations)
     end
 
+  end
+
+  describe "to_s" do
+    it "returns name as a string" do
+      expect(resource_category.to_s).to eq("FAKE NAME")
+    end 
   end
 
 
