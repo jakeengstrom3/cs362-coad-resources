@@ -1,0 +1,11 @@
+Git Names:
+  Issues:
+    Where: What: issue
+    Ex: Models: resource_category: Needs tests
+
+  Branches:
+    #ofIssue_file
+    Ex: 06_region.rb
+
+Test Names:
+
