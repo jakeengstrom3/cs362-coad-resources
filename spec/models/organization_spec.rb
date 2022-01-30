@@ -63,5 +63,23 @@ RSpec.describe Organization, type: :model do
     it "validates name uniqueness" do
       expect(organization).to validate_uniqueness_of(:name).case_insensitive
     end
+
+    it "checks if it has many users" do
+      expect(organization).to have_many(:users)
+    end
+
+    it "checks if it has many tickets" do
+      expect(organization).to have_many(:tickets)
+    end
+
+    it "checks if it has many resource_categories" do
+      expect(organization).to have_and_belong_to_many(:resource_categories)
+    end
+  end
+
+  describe "to_s" do
+    it "returns name as a string" do
+      expect(organization.to_s).to eq("FAKE NAME")
+    end
   end
 end
