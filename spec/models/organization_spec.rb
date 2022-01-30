@@ -5,7 +5,6 @@ RSpec.describe Organization, type: :model do
 	let(:organization) {Organization.new(email: "FakeEmail@FakeEmail.com", 
 		name: "FAKE NAME",
 			phone: "1111111111",
-			status: 1,
 			primary_name: "FAKE PRIMARY",
 			secondary_name: "FAKE SECONDARY",
 			secondary_phone: "1111111111",
@@ -81,5 +80,27 @@ RSpec.describe Organization, type: :model do
     it "returns name as a string" do
       expect(organization.to_s).to eq("FAKE NAME")
     end
+  end
+
+  describe "status changes" do
+
+		it "checks if status was set to 'submitted' by default" do
+				expect(organization.status).to eq("submitted")
+		end 
+
+		it "sets status to rejected" do
+				organization.reject
+				expect(organization.status).to eq("rejected")
+		end
+
+		it "sets status to approved" do
+			organization.approve
+				expect(organization.status).to eq("approved")
+		end
+
+		it "sets default status" do
+				organization.set_default_status
+				expect(organization.status).to eq("submitted")
+		end 
   end
 end
