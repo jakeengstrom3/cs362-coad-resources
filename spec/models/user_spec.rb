@@ -21,7 +21,11 @@ RSpec.describe User, type: :model do
     it "validates format of email" do
       expect(user).to allow_value("valid@valid.valid").for(:email)
       expect(user).to_not allow_value("Invalid4invalid").for(:email)
-    end 
+    end
+    
+    it "validates uniqueness of email" do
+      expect(user).to validate_uniqueness_of(:email).case_insensitive
+    end
   end
 
 
