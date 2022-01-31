@@ -14,6 +14,14 @@ RSpec.describe User, type: :model do
   end
 
   describe "attributes" do
+    it "defines role enum" do
+      expect(user).to define_enum_for(:role)
+    end
+
+    it "belongs_to organization" do
+      expect(user).to belong_to(:organization)
+    end
+
     it "validates presence of email" do
       expect(user).to validate_presence_of(:email)
     end
@@ -38,6 +46,10 @@ RSpec.describe User, type: :model do
     it "validates length of password" do
       expect(user).to validate_length_of(:password).is_at_least(7).is_at_most(255)
     end
+    
+    it "sets default role to organization if its a new record" do
+      expect(user.role).to eq("organization")
+    end
   end
 
   describe "to_s" do
@@ -46,5 +58,11 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "set_default_role" do
+    it "sets the role to organization" do
+      user.set_default_role
+      expect(user.role).to eq("organization")
+    end
+  end
 
 end
