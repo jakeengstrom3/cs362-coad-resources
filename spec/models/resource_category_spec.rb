@@ -38,5 +38,26 @@ RSpec.describe ResourceCategory, type: :model do
     end 
   end
 
+  describe "activate" do
+    it "sets active value to true" do
+      resource_category.activate
+      expect(resource_category.active).to eq(true)
+    end
+  end
 
+  describe "deactivate" do
+    it "sets active value to false" do
+      resource_category.deactivate
+      expect(resource_category.active).to eq(false)
+    end
+  end
+
+  describe "inacive?" do
+    it "returns true if active is false, and false if active is true" do
+      resource_category.activate
+      expect(resource_category.inactive?).to eq(false)
+      resource_category.deactivate
+      expect(resource_category.inactive?).to eq(true)
+    end
+  end
 end
