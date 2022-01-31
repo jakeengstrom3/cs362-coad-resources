@@ -1,9 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  
-  let (:user) {User.new(email: "FAKE_EMAIL@FAKE.FAKE",
-                        password: "FAKE_PASSWORD")}
+
+  FAKE_EMAIL = "FAKE_EMAIL@FAKE.FAKE"
+  FAKE_PASSWORD = "FAKE_PASSWORD"
+  let (:user) {User.new(email: FAKE_EMAIL,
+                        password: FAKE_PASSWORD)}
+
+
 
   it "exits" do
     user
@@ -33,6 +37,12 @@ RSpec.describe User, type: :model do
 
     it "validates length of password" do
       expect(user).to validate_length_of(:password).is_at_least(7).is_at_most(255)
+    end
+  end
+
+  describe "to_s" do
+    it "returns the string email" do
+      expect(user.to_s).to eq(FAKE_EMAIL)
     end
   end
 
