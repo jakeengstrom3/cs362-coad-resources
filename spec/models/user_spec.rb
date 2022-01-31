@@ -26,6 +26,14 @@ RSpec.describe User, type: :model do
     it "validates uniqueness of email" do
       expect(user).to validate_uniqueness_of(:email).case_insensitive
     end
+
+    it "validates presence of password" do
+      expect(user).to validate_presence_of(:password)
+    end
+
+    it "validates length of password" do
+      expect(user).to validate_length_of(:password).is_at_least(7).is_at_most(255)
+    end
   end
 
 
