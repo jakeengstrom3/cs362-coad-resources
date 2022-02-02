@@ -2,10 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Ticket, type: :model do
 
-  let(:ticket) {Ticket.new(name: "FAKE NAME",
-  phone: "FAKE PHONE",
-  region_id: "FAKE REGION ID",
-  resource_category_id: "FAKE RESOURCE CATEGORY ID" )} 
+  let(:ticket) {FactoryBot.build(:ticket)} 
 
   describe "attributes" do
     it "belongs to a region" do
