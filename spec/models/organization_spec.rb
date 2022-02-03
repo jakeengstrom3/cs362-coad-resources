@@ -85,22 +85,21 @@ RSpec.describe Organization, type: :model do
   describe "status changes" do
 
 		it "checks if status was set to 'submitted' by default" do
-				expect(organization.status).to eq("submitted")
+			expect(organization.status).to eq("submitted")
 		end 
 
 		it "sets status to rejected" do
-				organization.reject
-				expect(organization.status).to eq("rejected")
+      organization.status = "approved"
+			expect(organization.status).to_not eq("rejected")
+			organization.reject
+			expect(organization.status).to eq("rejected")
 		end
 
 		it "sets status to approved" do
+      organization.status = "rejected"
+			expect(organization.status).to_not eq("approved")
 			organization.approve
-				expect(organization.status).to eq("approved")
+			expect(organization.status).to eq("approved")
 		end
-
-		it "sets default status" do
-				organization.set_default_status
-				expect(organization.status).to eq("submitted")
-		end 
   end
 end
