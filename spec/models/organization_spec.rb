@@ -2,13 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Organization, type: :model do
 
-	let(:organization) {Organization.new(email: "FakeEmail@FakeEmail.com", 
-		name: "FAKE NAME",
-			phone: "1111111111",
-			primary_name: "FAKE PRIMARY",
-			secondary_name: "FAKE SECONDARY",
-			secondary_phone: "1111111111",
-			description: "This is a very real description")}
+	let(:organization) {build(:organization)} 
 
 	it "exsists" do
 	  organization
