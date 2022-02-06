@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Region, type: :model do
 
-  let(:region) {Region.new(name: "FAKE NAME")}
+  let(:region) {build(:region)}
 
   it "exists" do
     region
@@ -28,7 +28,7 @@ RSpec.describe Region, type: :model do
 
   describe "to_s" do
     it "returns name as a string" do
-      expect(region.to_s).to eq("FAKE NAME")
+      expect(region.to_s).to eq("FAKE REGION")
     end
   end
 
