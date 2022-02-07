@@ -16,7 +16,10 @@ RSpec.describe Ticket, type: :model do
     it "belongs to an organization" do
       expect(ticket).to belong_to(:organization)
     end
+  end
 
+
+  describe "validations" do
     it "validates presence of name, phone, region id, and resource_category" do
       expect(ticket).to validate_presence_of(:name)
       expect(ticket).to validate_presence_of(:phone)
@@ -30,6 +33,23 @@ RSpec.describe Ticket, type: :model do
 
     it "validates length of description" do
       expect(ticket).to validate_length_of(:description).is_at_most(1020)
+    end
+  end
+
+  describe "methods" do
+    describe "open?" do
+      it "returns true if not closed, else returns false" do
+        ticket = FactoryBot.build(:ticket, closed: true)
+        expect(ticket.open?).to eq(false)
+        ticket = FactoryBot.build(:ticket, closed: false)
+        expect(ticket.open?).to eq(true)
+      end
+    end
+    describe "to_s" do
+      it "returns the string 'Ticket' followed by the ticket id" do
+        ticket = FactoryBot.build(:ticket, id: 11111)
+        expect(ticket.to_s).to eq("Ticket 11111")
+      end
     end
   end
 
