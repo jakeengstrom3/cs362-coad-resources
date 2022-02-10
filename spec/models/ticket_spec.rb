@@ -70,6 +70,19 @@ RSpec.describe Ticket, type: :model do
       end
       
     end
+
+    describe "closed" do
+      it "retreived all closed tickets, and only closed tickets" do
+        open_ticket = create(:ticket, closed: false)
+        closed_ticket = create(:ticket, closed: true)
+        results = Ticket.closed
+
+        expect(results).to_not include(open_ticket)
+        expect(results).to include(closed_ticket)
+      end
+    end
+
+    
   end
 
 end 
