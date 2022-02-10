@@ -34,6 +34,7 @@ RSpec.describe ResourceCategory, type: :model do
 
   describe "to_s" do
     it "returns name as a string" do
+      resource_category = build(:resource_category, name: "FAKE NAME")
       expect(resource_category.to_s).to eq("FAKE NAME")
     end 
   end

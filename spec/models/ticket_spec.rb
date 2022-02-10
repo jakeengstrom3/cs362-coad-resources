@@ -37,19 +37,38 @@ RSpec.describe Ticket, type: :model do
   end
 
   describe "methods" do
+
     describe "open?" do
       it "returns true if not closed, else returns false" do
-        ticket = FactoryBot.build(:ticket, closed: true)
+        ticket = build(:ticket, closed: true)
         expect(ticket.open?).to eq(false)
-        ticket = FactoryBot.build(:ticket, closed: false)
+        ticket = build(:ticket, closed: false)
         expect(ticket.open?).to eq(true)
       end
     end
+
     describe "to_s" do
       it "returns the string 'Ticket' followed by the ticket id" do
-        ticket = FactoryBot.build(:ticket, id: 11111)
+        ticket = build(:ticket, id: 11111)
         expect(ticket.to_s).to eq("Ticket 11111")
       end
+    end
+
+  end
+
+  describe "scope" do
+    describe "open" do
+      it "retreives all open tickets, and only open tickets" do
+        # When I retreive open tickets
+        # I should receive only open tickets
+        open_ticket = create(:ticket, closed: false)
+        closed_ticket = create(:ticket, closed: true)
+        results = Ticket.open
+
+        expect(results).to include(open_ticket)
+        expect(results).to_not include(closed_ticket)
+      end
+      
     end
   end
 
