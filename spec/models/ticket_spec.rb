@@ -58,11 +58,11 @@ RSpec.describe Ticket, type: :model do
 
   describe "scope" do
     describe "open" do
-      it "retreives all open tickets, and only open tickets" do
+      it "retreives all open tickets that do not have an organization" do
         # When I retreive open tickets
         # I should receive only open tickets
-        open_ticket = create(:ticket, closed: false)
-        closed_ticket = create(:ticket, closed: true)
+        open_ticket = create(:ticket, closed: false, organization: nil)
+        closed_ticket = create(:ticket, closed: true, organization: nil)
         results = Ticket.open
 
         expect(results).to include(open_ticket)
@@ -82,7 +82,66 @@ RSpec.describe Ticket, type: :model do
       end
     end
 
-    
+    describe "all_organization" do
+      it "retreives all open tickets with an organization" do
+        open_ticket_with_org = create(:ticket, closed: false)
+        results = Ticket.all_organization
+
+        expect(results).to include(open_ticket_with_org)
+
+      end
+    end
+
+    describe "organization" do
+      it "retreives all open tickets of a specific organization id" do
+        ticket = create(:ticket)
+        organization_id = ticket.organization_id
+        expect(Ticket.organization(organization_id)).to include(ticket)
+      end
+    end
+
+    describe "closed_organizaion" do
+      it "retreives all open tickets with the specified organization id" do
+        closed_ticket_with_same_org = create(:ticket, closed: true)
+        open_ticket_with_same_org = create(:ticket, organization: closed_ticket_with_same_org.organization)
+        closed_ticket_with_diff_org = create(:ticket, closed: true)
+
+        organization_id = closed_ticket_with_same_org.organization_id
+
+        expect(Ticket.closed_organization(organization_id)).to include(closed_ticket_with_same_org)
+        expect(Ticket.closed_organization(organization_id)).to_not include(closed_ticket_with_diff_org)
+        expect(Ticket.closed_organization(organization_id)).to_not include(open_ticket_with_same_org)
+      end
+    end
+
+    describe "region" do
+      it "retreives all tickets with the specified region_id" do
+        ticket_with_same_region_1 = create(:ticket)
+        common_region = ticket_with_same_region_1.region
+        ticket_with_same_region_2 = create(:ticket, region: common_region)
+        ticket_with_different_region = create(:ticket)
+
+        results = Ticket.region(common_region)
+
+        expect(results).to include(ticket_with_same_region_1, ticket_with_same_region_2)
+        expect(results).to_not include(ticket_with_different_region)
+      end
+    end
+
+    describe "resource category" do
+      it "retreives all tickets with the specified resource category" do 
+        ticket_with_same_resource_category_1 = create(:ticket)
+        common_resource_category = ticket_with_same_resource_category_1.resource_category
+        ticket_with_same_resource_category_2 = create(:ticket, resource_category: common_resource_category)
+        ticket_with_different_resource_category = create(:ticket)
+
+        results = Ticket.resource_category(common_resource_category)
+
+        expect(results).to include(ticket_with_same_resource_category_1, ticket_with_same_resource_category_2)
+        expect(results).to_not include(ticket_with_different_resource_category)
+
+      end
+    end
   end
 
 end 

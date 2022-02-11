@@ -72,6 +72,7 @@ RSpec.describe Organization, type: :model do
 
   describe "to_s" do
     it "returns name as a string" do
+      organization = build(:organization, name: "FAKE NAME")
       expect(organization.to_s).to eq("FAKE NAME")
     end
   end

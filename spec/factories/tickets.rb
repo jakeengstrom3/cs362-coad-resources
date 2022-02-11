@@ -6,5 +6,6 @@ FactoryBot.define do
     closed {false}
     resource_category
     region
+    organization
   end
 end
