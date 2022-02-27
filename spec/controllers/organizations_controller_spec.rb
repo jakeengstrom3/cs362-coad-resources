@@ -29,15 +29,28 @@ RSpec.describe OrganizationsController, type: :controller do
 
     describe "A organization user who is signed-in" do
 
-        let(:user) {build(:user, :make_org)}
-
-
-        it "valid user" do
-            user.confirm
-        end
-
-        it "user signed in" do
-            sign_in(user)
+        it "Redirects to designated page" do
+            org_user = create(:user, :make_org)
+            org_user.confirm
+            sign_in(org_user)
+            get :index
+            expect(response).to be_successful
+            get :new
+            expect(response).to redirect_to(dashboard_path)
+            post :create
+            expect(response).to redirect_to(dashboard_path)
+            get :edit, params:{id:"FAKE"}
+            expect(response).to redirect_to(dashboard_path)
+            patch :update, params:{id:"FAKE"}
+            expect(response).to redirect_to(dashboard_path)
+            put :update, params:{id:"FAKE"}
+            expect(response).to redirect_to(dashboard_path)
+            get :show, params:{id:"FAKE"}
+            expect(response).to redirect_to(dashboard_path)
+            post :approve, params:{id:"FAKE"}
+            expect(response).to redirect_to(dashboard_path)
+            post :reject, params:{id:"FAKE"}
+            expect(response).to redirect_to(dashboard_path)
         end
     end
 end
