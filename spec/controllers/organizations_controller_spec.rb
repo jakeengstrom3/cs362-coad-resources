@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe OrganizationsController, type: :controller do
 
+
+
     describe "A user who is not logged in" do
         it "Redirects to sign-in screen" do
             get :index
@@ -22,6 +24,20 @@ RSpec.describe OrganizationsController, type: :controller do
             expect(response).to redirect_to(new_user_session_path)
             post :reject, params:{id:"FAKE"}
             expect(response).to redirect_to(new_user_session_path)
+        end
+    end
+
+    describe "A organization user who is signed-in" do
+
+        let(:user) {build(:user, :make_org)}
+
+
+        it "valid user" do
+            user.confirm
+        end
+
+        it "user signed in" do
+            sign_in(user)
         end
     end
 end
