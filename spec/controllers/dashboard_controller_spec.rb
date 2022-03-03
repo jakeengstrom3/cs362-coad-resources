@@ -8,4 +8,14 @@ RSpec.describe DashboardController, type: :controller do
             expect(response).to redirect_to(new_user_session_path)
         end
     end
+    describe "A signed in user" do
+        it "redirects to dashboard" do
+            org_user = create(:user, :make_org)
+            org_user.confirm
+            sign_in(org_user)
+
+            get :index
+            expect(response).to be_successful
+        end
+    end
 end
