@@ -1,3 +1,7 @@
+#
+#   This region class represents the the different areas the disasters 
+#   can occure in and allows for more regions to be added in
+#
 class Region < ApplicationRecord
 
   has_many :tickets

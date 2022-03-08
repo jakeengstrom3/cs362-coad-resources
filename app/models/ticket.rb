@@ -1,3 +1,7 @@
+#
+#   This class represents all of the possible different fill in sections on a ticket you can submit
+#   The class also puts limitations on how long the input can be
+#
 class Ticket < ApplicationRecord
 
   belongs_to :region
