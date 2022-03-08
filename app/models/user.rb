@@ -1,3 +1,7 @@
+#
+#  User class represents a user. Users can be admins, organizations, or neither. 
+#  Users have a role, email, and password. 
+#
 class User < ApplicationRecord
 
   enum role: [:admin, :organization]

@@ -1,3 +1,7 @@
+#  
+#  A category that an available resource fits in. Example: Snow removal or Home repair
+#  All tickets must belong to a resource category
+#
 class ResourceCategory < ApplicationRecord
 
   has_and_belongs_to_many :organizations
